@@ -147,3 +147,9 @@ Further Resources
 - [Official Jenkins Docker images](https://github.com/jenkinsci/docker)
 - [Groovy snippet to manage Jenkins users](https://gist.github.com/jnbnyc/c6213d3d12c8f848a385)
 - [Reference for `tini` (init replacement)](https://github.com/krallin/tini)
+- Riot Games Blog posts about Jenkins in Docker
+  * [Putting Jenkins in a Docker Container](https://engineering.riotgames.com/news/putting-jenkins-docker-container)
+  * [Docker & Jenkins - Data that persists](https://engineering.riotgames.com/news/docker-jenkins-data-persists)
+  * [Jenkins, Docker, Proxies and Compose](https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose)
+  * [Taking Control of your Docker Image](https://engineering.riotgames.com/news/taking-control-your-docker-image)
+  * [Understanding Volumes in Docker](http://container-solutions.com/understanding-volumes-docker/)
