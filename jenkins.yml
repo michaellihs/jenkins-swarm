@@ -1,8 +1,21 @@
 version: '3.1'
 
+volumes:
+  jenkinsdata:
+  jenkinsconf:
+
 services:
 
+  jenkinsdata:
+    build: jenkins-data
+    image: michaellihs/jenkinsdata
+
+  jenkinsconf:
+    build: jenkins-conf
+    image: michaellihs/jenkinsconf
+
   main:
+    build: jenkins-master
     image: michaellihs/jenkins
     ports:
       - 8081:8080
@@ -10,6 +23,9 @@ services:
     secrets:
       - jenkins-user
       - jenkins-pass
+    volumes:
+      - jenkinsdata:/var/log/jenkins
+      - jenkinsconf:/var/jenkins_home
 
 secrets:
   jenkins-user:

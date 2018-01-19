@@ -9,7 +9,10 @@ Jenkins instance. See [https://technologyconversations.com/2017/06/16/automating
 - [Automated Jenkins Setup](#automated-jenkins-setup)
     - [Init local Swarm](#init-local-swarm)
     - [Generate dummy image to get plugins](#generate-dummy-image-to-get-plugins)
-    - [Preparing the image](#preparing-the-image)
+    - [Building the Jenkins Master image](#building-the-jenkins-master-image)
+    - [Building the Jenkins data image](#building-the-jenkins-data-image)
+    - [Building the Jenkins config image](#building-the-jenkins-config-image)
+    - [Building all necessary images with Docker Compose](#building-all-necessary-images-with-docker-compose)
     - [Create Jenkins service with automated setup](#create-jenkins-service-with-automated-setup)
     - [Cleaning up afterwards](#cleaning-up-afterwards)
 - [Documentation of the Jenkins image](#documentation-of-the-jenkins-image)
@@ -52,16 +55,34 @@ Shut down the service with
     docker service rm jenkins
 
 
-Preparing the image
--------------------
+Building the Jenkins Master image
+---------------------------------
 
 Create a Jenkins image with plugins from `plugin.txt`:
 
-    docker image build -t michaellihs/jenkins .
+    docker image build --no-cache -t michaellihs/jenkins jenkins-master/
 
 Optional: push image to Docker registry:
 
     docker image push michaellihs/jenkins
+
+
+Building the Jenkins data image
+-------------------------------
+
+    docker image build -t michaellihs/jenkinsdata jenkins-data/
+
+
+Building the Jenkins config image
+---------------------------------
+
+    docker image build -t michaellihs/jenkinsconf jenkins-conf/
+
+
+Building all necessary images with Docker Compose
+-------------------------------------------------
+
+    docker-compose -f jenkins.yml build --no-cache
 
 
 Create Jenkins service with automated setup
@@ -111,8 +132,8 @@ How can I see logs
 TODOs
 =====
 
-- [ ] Add volume for (persistent) configuration
-- [ ] Add volume for (persistent) logfiles
+- [x] Add volume for (persistent) configuration
+- [x] Add volume for (persistent) logfiles
 - [ ] Add volume for (persistent) job configuration
 - [ ] Provide and use a given Jenkins config
 - [x] Configure Jenkins security to use local user database
