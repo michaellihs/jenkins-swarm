@@ -138,6 +138,9 @@ TODOs
 - [ ] Provide and use a given Jenkins config
 - [x] Configure Jenkins security to use local user database
 - [ ] Provide a clean way to add script approvals
+- [ ] Add Jenkins Agents
+- [ ] Add nginx reverse proxy
+- [ ] Add SSL encryption
 
 
 Further Resources
