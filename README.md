@@ -48,12 +48,12 @@ Enter password to browser and install required plugins. Create an admin user wit
 
 Extract plugins with
 
-    curl -s -k "http://admin:admin@localhost:8080/pluginManager/api/json?depth=1" \
-      | jq -r '.plugins[].shortName' | tee plugins.txt
+    curl -u  "admin:password" "http://localhost:8081/pluginManager/api/json?depth=1" | jq -r '.plugins[].shortName' | tee plugins.txt
 
 Shut down the service with
 
-    docker service rm jenkins
+    docker service rm echo "admin" | docker secret create jenkins-user -
+echo "admin" | docker secret create jenkins-pass -
 
 
 Building the Jenkins Master image
@@ -98,7 +98,7 @@ Create Jenkins service with automated setup
 Create the Docker secrets used as Jenkins admin user username and password:
 
     echo "admin" | docker secret create jenkins-user -
-    echo "admin" | docker secret create jenkins-pass -
+    echo "password" | docker secret create jenkins-pass -
 
 Deploy the stack:
 
