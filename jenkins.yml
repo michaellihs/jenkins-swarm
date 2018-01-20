@@ -4,8 +4,10 @@ volumes:
   jenkinsdata:
   jenkinsconf:
 
-services:
+networks:
+  nw001:
 
+services:
   jenkinsdata:
     build: jenkins-data
     image: michaellihs/jenkinsdata
@@ -14,11 +16,10 @@ services:
     build: jenkins-conf
     image: michaellihs/jenkinsconf
 
-  main:
+  jenkinsmaster:
     build: jenkins-master
     image: michaellihs/jenkins
     ports:
-      - 8081:8080
       - 50000:50000
     secrets:
       - jenkins-user
@@ -26,6 +27,18 @@ services:
     volumes:
       - jenkinsdata:/var/log/jenkins
       - jenkinsconf:/var/jenkins_home
+    networks:
+      nw001:
+        aliases:
+          - jenkins-master
+
+  jenkinsnginx:
+    build: jenkins-nginx
+    image: michaellihs/jenkinsnginx
+    ports:
+      - 8081:8081
+    networks:
+      - nw001
 
 secrets:
   jenkins-user:
