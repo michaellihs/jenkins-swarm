@@ -52,9 +52,7 @@ Extract plugins with
 
 Shut down the service with
 
-    docker service rm echo "admin" | docker secret create jenkins-user -
-echo "admin" | docker secret create jenkins-pass -
-
+    docker service rm jenkins
 
 Building the Jenkins Master image
 ---------------------------------
