@@ -3,6 +3,7 @@ version: '3.1'
 volumes:
   jenkinsdata:
   jenkinsconf:
+  jenkinsjobs:
 
 networks:
   nw001:
@@ -16,6 +17,10 @@ services:
     build: jenkins-conf
     image: michaellihs/jenkinsconf
 
+  jenkinsjobs:
+    build: jenkins-jobs
+    image: michaellihs/jenkinsjobs
+
   jenkinsmaster:
     build: jenkins-master
     image: michaellihs/jenkins
@@ -27,6 +32,7 @@ services:
     volumes:
       - jenkinsdata:/var/log/jenkins
       - jenkinsconf:/var/jenkins_home
+      - jenkinsjobs:/var/jenkins_jobs
     networks:
       nw001:
         aliases:

@@ -12,6 +12,7 @@ Jenkins instance. See [https://technologyconversations.com/2017/06/16/automating
     - [Building the Jenkins Master image](#building-the-jenkins-master-image)
     - [Building the Jenkins data image](#building-the-jenkins-data-image)
     - [Building the Jenkins config image](#building-the-jenkins-config-image)
+    - [Building the Jenkins jobs image](#building-the-jenkins-jobs-image)
     - [Building the nginx image](#building-the-nginx-image)
     - [Building all necessary images with Docker Compose](#building-all-necessary-images-with-docker-compose)
     - [Create Jenkins service with automated setup](#create-jenkins-service-with-automated-setup)
@@ -48,7 +49,7 @@ Enter password to browser and install required plugins. Create an admin user wit
 
 Extract plugins with
 
-    curl -u  "admin:password" "http://localhost:8081/pluginManager/api/json?depth=1" | jq -r '.plugins[].shortName' | tee plugins.txt
+    curl -u  "admin:password" "http://localhost:8081/pluginManager/api/json?depth=1" | jq -r '.plugins[].shortName' | tee jenkins-master/plugins.txt
 
 Shut down the service with
 
@@ -78,6 +79,11 @@ Building the Jenkins config image
 
     docker image build -t michaellihs/jenkinsconf jenkins-conf/
 
+
+Building the Jenkins jobs image
+-------------------------------
+
+    docker image build -t michaellihs/jenkinsjobs jenkins-jobs/
 
 Building the nginx image
 ------------------------
@@ -136,16 +142,20 @@ How can I see logs from containers
 
 How can I see logs from services in stacks
 
-    docker stack services -q jenkins      # where 'jenkins' is the stack name
+    docker stack services jenkins          # where 'jenkins' is the stack name
     docker service logs -f <SERVICE ID>
 
 
 TODOs
 =====
 
+- [ ] Find out why Jenkins is run as `root` rather than as `jenkins` in container
+- [ ] Fix issue with re-build local image not being used by Docker Swarm
 - [x] Add volume for (persistent) configuration
 - [x] Add volume for (persistent) logfiles
+- [ ] Separate jobs config from global config in persistent configuration
 - [ ] Provide and use a given Jenkins config
+- [ ] Provide and use given Jenkins plugin configs
 - [x] Configure Jenkins security to use local user database
 - [ ] Provide a clean way to add script approvals
 - [ ] Add Jenkins Agents
@@ -162,9 +172,13 @@ Further Resources
 - [Official Jenkins Docker images](https://github.com/jenkinsci/docker)
 - [Groovy snippet to manage Jenkins users](https://gist.github.com/jnbnyc/c6213d3d12c8f848a385)
 - [Reference for `tini` (init replacement)](https://github.com/krallin/tini)
+  * [Advantage of Tini](https://github.com/krallin/tini/issues/8)
+  * [Docker and the PID 1 Zombie Reaping Problem](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/)
 - Riot Games Blog posts about Jenkins in Docker
   * [Putting Jenkins in a Docker Container](https://engineering.riotgames.com/news/putting-jenkins-docker-container)
   * [Docker & Jenkins - Data that persists](https://engineering.riotgames.com/news/docker-jenkins-data-persists)
   * [Jenkins, Docker, Proxies and Compose](https://engineering.riotgames.com/news/jenkins-docker-proxies-and-compose)
   * [Taking Control of your Docker Image](https://engineering.riotgames.com/news/taking-control-your-docker-image)
   * [Understanding Volumes in Docker](http://container-solutions.com/understanding-volumes-docker/)
+  * [Troubleshooting Jenkins Reverse Proxy Issues](https://wiki.jenkins.io/display/JENKINS/Jenkins+says+my+reverse+proxy+setup+is+broken)
+- [Cleaning up Docker Images](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)

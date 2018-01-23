@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.workflow.libs.GlobalLibraries plugin="workflow-cps-global-lib@2.9">
+    <libraries>
+        <org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+            <name>TYPO3 Chef CI Global Pipeline Library</name>
+            <retriever class="org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever">
+                <scm class="jenkins.plugins.git.GitSCMSource" plugin="git@3.7.0">
+                    <id>370d795e-2e5e-4f84-92b1-e21744afe39f</id>
+                    <remote>https://github.com/michaellihs/jenkins-pipeline-global-library-chefci.git</remote>
+                    <credentialsId></credentialsId>
+                    <traits>
+                        <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
+                    </traits>
+                </scm>
+            </retriever>
+            <defaultVersion>master</defaultVersion>
+            <implicit>true</implicit>
+            <allowVersionOverride>true</allowVersionOverride>
+            <includeInChangesets>true</includeInChangesets>
+        </org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+    </libraries>
+</org.jenkinsci.plugins.workflow.libs.GlobalLibraries>
