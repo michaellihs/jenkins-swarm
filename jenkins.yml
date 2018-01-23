@@ -24,9 +24,10 @@ services:
     secrets:
       - jenkins-user
       - jenkins-pass
-    volumes:
-      - jenkinsdata:/var/log/jenkins
-      - jenkinsconf:/var/jenkins_home
+    # TODO issues with file permissions
+    #volumes:
+      #- jenkinsdata:/var/log/jenkins
+      #- jenkinsconf:/var/jenkins_home
     networks:
       nw001:
         aliases:

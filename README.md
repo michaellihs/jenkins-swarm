@@ -62,9 +62,11 @@ Create a Jenkins image with plugins from `plugin.txt`:
 
     docker image build --no-cache -t michaellihs/jenkins jenkins-master/
 
-Optional: push image to Docker registry:
+(optional) Push image to Docker registry:
 
     docker image push michaellihs/jenkins
+
+**ATTENTION: if you push an image to Docker registry, Swarm will always download image from registry, local changes are ignored until you push them!**
 
 
 Building the Jenkins data image
