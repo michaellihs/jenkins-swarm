@@ -8,8 +8,7 @@ RUN chown -R jenkins:jenkins /var/log/jenkins
 RUN chown -R jenkins:jenkins /var/cache/jenkins
 USER jenkins
 
-# TODO fix issue with mounted volume / file permissions
-#ENV JENKINS_OPTS="--handlerCountStartup=100 --handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war"
+ENV JENKINS_OPTS="--handlerCountStartup=100 --handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log --webroot=/var/cache/jenkins/war"
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
 COPY security.groovy /usr/share/jenkins/ref/init.groovy.d/security.groovy

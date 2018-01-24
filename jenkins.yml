@@ -2,7 +2,6 @@ version: '3.1'
 
 volumes:
   jenkinsdata:
-  jenkinsconf:
 
 networks:
   nw001:
@@ -12,10 +11,6 @@ services:
     build: jenkins-data
     image: michaellihs/jenkinsdata
 
-  jenkinsconf:
-    build: jenkins-conf
-    image: michaellihs/jenkinsconf
-
   jenkinsmaster:
     build: jenkins-master
     image: michaellihs/jenkins
@@ -24,10 +19,9 @@ services:
     secrets:
       - jenkins-user
       - jenkins-pass
-    # TODO issues with file permissions
-    #volumes:
-      #- jenkinsdata:/var/log/jenkins
-      #- jenkinsconf:/var/jenkins_home
+    volumes:
+      - jenkinsdata:/var/log/jenkins
+      - jenkinsdata:/var/jenkins_home
     networks:
       nw001:
         aliases:
