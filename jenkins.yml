@@ -8,14 +8,6 @@ networks:
   nw001:
 
 services:
-  jenkinsdata:
-    build: jenkins-data
-    image: michaellihs/jenkinsdata
-
-  jenkinsconf:
-    build: jenkins-conf
-    image: michaellihs/jenkinsconf
-
   jenkinsmaster:
     build: jenkins-master
     image: michaellihs/jenkins

@@ -54,7 +54,6 @@ Shut down the service with
 
     docker service rm jenkins
 
-
 Building the Jenkins Master image
 ---------------------------------
 
